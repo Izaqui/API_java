@@ -1,44 +1,31 @@
 package com.example.project_dev.dominio.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Entity(name = "tb_card")
+@Entity
+@Table(name = "tb_card")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @NotBlank
+    @Size(max = 20)
+    @Column(unique = true, nullable = false, length = 20)
     private String number;
 
-    @Column(name = "available_limit", precision = 13, scale = 2)
+    @NotNull
+    @Column(name = "available_limit", precision = 13, scale = 2, nullable = false)
     private BigDecimal limit;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public BigDecimal getLimit() {
-        return limit;
-    }
-
-    public void setLimit(BigDecimal limit) {
-        this.limit = limit;
-    }
-
 }
